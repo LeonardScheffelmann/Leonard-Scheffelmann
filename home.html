@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deine Website</title>
+    <style>
+        body {
+            background-color: black;
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        #menuToggle {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            cursor: pointer;
+            z-index: 2;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #menuIcon {
+            width: 30px;
+            height: 4px;
+            background-color: white;
+            margin: 6px 0;
+        }
+
+        #menu {
+            display: none;
+        }
+
+        #menu:checked ~ #menuContent {
+            display: block;
+        }
+
+        #menuContent {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 30px;
+            background-color: black;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        #menuContent a {
+            display: block;
+            color: white;
+            text-decoration: none;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+
+        #menuContent a.active {
+            text-decoration: underline;
+        }
+
+        #contentContainer {
+            padding: 80px; /* Anpassung des Padding-Werts nach Bedarf */
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="menu" class="hidden-checkbox">
+    <label for="menu" id="menuToggle">
+        <div id="menuIcon"></div>
+        <div id="menuIcon"></div>
+        <div id="menuIcon"></div>
+    </label>
+
+    <div id="menuContent">
+        <a href="#" onclick="showPage('home')">Home</a>
+        <a href="#" onclick="showPage('firedepartment')">Firedepartment</a>
+        <a href="#" onclick="showPage('links')">Links</a>
+    </div>
+
+    <div id="contentContainer">
+        <div id="home" class="page active">
+            <h1>Home Page</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel justo ac augue pellentesque rhoncus.</p>
+        </div>
+
+        <div id="firedepartment" class="page">
+            <h1>Firedepartment Page</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel justo ac augue pellentesque rhoncus.</p>
+        </div>
+
+        <div id="links" class="page">
+            <h1>Links Page</h1>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel justo ac augue pellentesque rhoncus.</p>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            var pages = document.querySelectorAll('.page');
+            pages.forEach(function(page) {
+                page.classList.remove('active');
+            });
+
+            var selectedPage = document.getElementById(pageId);
+            selectedPage.classList.add('active');
+
+            var menuLinks = document.querySelectorAll('#menuContent a');
+            menuLinks.forEach(function(link) {
+                link.classList.remove('active');
+            });
+
+            var selectedMenuLink = document.querySelector(`#menuContent a[href="#"][onclick*="${pageId}"]`);
+            selectedMenuLink.classList.add('active');
+        }
+    </script>
+</body>
+</html>
